@@ -23,6 +23,7 @@ pub struct StatusArgs {
     #[arg(required = true, short, long)]
     pub filename: String,
 
+    /// A list of the ports or seprated by 2 dots
     #[arg(short, long)]
     pub ports: Option<String>,
 }

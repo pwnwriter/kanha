@@ -6,7 +6,7 @@ use std::io::{self, BufRead};
 use std::sync::Arc;
 
 #[allow(non_snake_case)]
-pub async fn Status_code() {
+pub async fn status_code() {
     let cli = Cli::parse();
     match cli.command {
         CommandChoice::status(status_args) => {
@@ -27,6 +27,9 @@ pub async fn Status_code() {
                 });
 
                 futures::future::join_all(futures).await;
+            } else {
+                // Handle the case where the file couldn't be opened
+                crate::log::info_error("No such file or directory");
             }
         }
     }

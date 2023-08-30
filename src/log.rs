@@ -7,7 +7,7 @@ pub fn abort(msg: &str) -> ! {
 }
 
 pub fn info_error(msg: &str) {
-    println!("{}: {msg}", "info".bold().blue());
+    println!("{}: {msg}", "info".bold().red());
 }
 
 pub fn info_success(msg: &str) {
