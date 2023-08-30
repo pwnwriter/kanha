@@ -11,7 +11,16 @@ pub async fn status_code() {
     match cli.command {
         CommandChoice::status(status_args) => {
             if let Ok(lines) = read_lines(&status_args.filename) {
-                let client = Arc::new(reqwest::Client::new());
+                let client_builder = reqwest::Client::builder().redirect(reqwest::redirect::Policy::none());
+                let client_result = client_builder.build();
+
+                let client = match client_result {
+                    Ok(client) => Arc::new(client),
+                    Err(error) => {
+                        eprintln!("[ERROR] Failed to create reqwest client: {}", error);
+                        return;
+                    }
+                };
 
                 let futures = lines.map(|line| {
                     let client = Arc::clone(&client); // Clone the Arc for this task
