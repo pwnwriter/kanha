@@ -2,16 +2,17 @@ name: Rust
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,8 +22,13 @@ jobs:
           - nightly
 
     steps:
-    - uses: actions/checkout@v3
-    - run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
-    - name: Build
-      run: cargo build --verbose
-      run: cargo run -- status -f tests/hosts.txt
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Rust
+        run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
+      
+      - name: Build
+        run: |
+          cargo build --verbose
+          cargo run --status -f tests/hosts.txt
