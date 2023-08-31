@@ -31,4 +31,4 @@ jobs:
       - name: Build
         run: |
           cargo build --verbose
-          cargo run --status -f tests/hosts.txt
+          cargo run -- status -f tests/hosts.txt
