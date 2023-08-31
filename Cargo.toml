@@ -21,6 +21,7 @@ serde = { version = "1.0.175", features = ["derive"] }
 colored = "2.0.4"
 rand = "0.8.5"
 futures = "0.3.28"
+lazy_static = "1.4.0"
 
 [profile.dev]
 opt-level = 0

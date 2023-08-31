@@ -1,4 +1,3 @@
-// The KANHA CLI.
 use crate::interface::splashes::show_splashes;
 use clap::{Args, Parser, Subcommand};
 
@@ -22,6 +21,10 @@ pub struct StatusArgs {
     /// A list of the ports or separated by 2 dots
     #[arg(short, long)]
     pub ports: Option<String>,
+
+    /// Define the maximum concurrent tasks
+    #[arg(short, long, default_value = "10")]
+    pub tasks: usize,
 }
 
 #[derive(Args)]

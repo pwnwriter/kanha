@@ -1,13 +1,13 @@
 use crate::{
-    commands::statuscode::statc::handle_status_command,
+    commands::status::statuscode::handle_status_command,
     interface::args::{Cli, CommandChoice},
 };
 use clap::Parser;
-use std::result::Result;
 
 mod commands;
 mod interface;
 mod log;
+
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {

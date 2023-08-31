@@ -1,24 +1,27 @@
 use crate::interface::StatusArgs;
+use reqwest::Client;
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::sync::Arc;
+use tokio::sync::Semaphore;
 
-#[allow(non_snake_case)]
-pub async fn fetch_and_print_status_codes(urls: Vec<String>) {
-    let client_builder = reqwest::Client::builder().redirect(reqwest::redirect::Policy::none());
-    let client_result = client_builder.build();
+// Reuse the reqwest client instance
+lazy_static::lazy_static! {
+    static ref HTTP_CLIENT: Client = Client::builder()
+        .redirect(reqwest::redirect::Policy::none())
+        .build()
+        .expect("Failed to create reqwest client");
+}
 
-    let client = match client_result {
-        Ok(client) => Arc::new(client),
-        Err(error) => {
-            eprintln!("[ERROR] Failed to create reqwest client: {}", error);
-            return;
-        }
-    };
+pub async fn fetch_and_print_status_codes(urls: Vec<String>, status_args: StatusArgs) {
+    let client = &HTTP_CLIENT;
+    let semaphore = Arc::new(Semaphore::new(status_args.tasks));
 
-    let futures = urls.into_iter().map(|url| {
-        let client = Arc::clone(&client);
+    let tasks = urls.into_iter().map(|url| {
+        let client = client.clone();
+        let semaphore = semaphore.clone();
         async move {
+            let _permit = semaphore.acquire().await.expect("Semaphore error");
             if let Ok(response) = client.get(&url).send().await {
                 crate::log::success(&format!("{},  [ {} ]", url, response.status()));
             } else {
@@ -27,7 +30,7 @@ pub async fn fetch_and_print_status_codes(urls: Vec<String>) {
         }
     });
 
-    futures::future::join_all(futures).await;
+    futures::future::join_all(tasks).await;
 }
 
 // https://doc.rust-lang.org/rust-by-example/std_misc/file/read_lines.html
@@ -44,9 +47,9 @@ pub async fn handle_status_command(
             .map_while(Result::ok) // Filter out lines with read errors
             .collect();
 
-        fetch_and_print_status_codes(urls).await;
+        fetch_and_print_status_codes(urls, status_args).await; 
     } else {
-        // Handle file shits
+        // Handle file error shits
         crate::log::error("No such file or directory");
     }
 

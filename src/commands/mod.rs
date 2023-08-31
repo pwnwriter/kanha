@@ -1,4 +1,4 @@
-pub mod statuscode;
+pub mod status;
 pub mod fuzz;
-pub use  statuscode::*;
+pub use  status::*;
 pub use  fuzz::*;

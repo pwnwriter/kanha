@@ -1,8 +1,13 @@
+use crate::commands::status::statuscode::read_lines;
 use crate::interface::FuzzerArgs;
 
 pub async fn fuzz_url(fuzzer_args: FuzzerArgs) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Hello from fuzer");
-    println!("FuzzerArgs filename: {}", fuzzer_args.filename);
-    // Add your fuzzing logic here using fuzzer_args.filename
+    if let Ok(lines) = read_lines(&fuzzer_args.filename).await {
+        let urls: Vec<String> = lines
+            .map_while(Result::ok) // Filter out lines with read errors
+            .collect();
+        println!("{:?}", urls);
+    }
+
     Ok(())
 }
