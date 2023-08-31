@@ -1,4 +1,4 @@
-use crate::interface::StatusArgs;
+use crate::{interface::StatusArgs, log::error};
 use reqwest::Client;
 use std::fs::File;
 use std::io::{self, BufRead};
@@ -13,6 +13,7 @@ lazy_static::lazy_static! {
         .expect("Failed to create reqwest client");
 }
 
+
 pub async fn fetch_and_print_status_codes(urls: Vec<String>, status_args: StatusArgs) {
     let client = &HTTP_CLIENT;
     let semaphore = Arc::new(Semaphore::new(status_args.tasks));
@@ -23,9 +24,7 @@ pub async fn fetch_and_print_status_codes(urls: Vec<String>, status_args: Status
         async move {
             let _permit = semaphore.acquire().await.expect("Semaphore error");
             if let Ok(response) = client.get(&url).send().await {
-                crate::log::success(&format!("{},  [ {} ]", url, response.status()));
-            } else {
-                crate::log::warn(&format!("{}, [ Failed to fetch ]", url));
+                println!("{} [{}]", url, response.status().as_u16()); // Print status code as integer
             }
         }
     });
@@ -47,10 +46,10 @@ pub async fn handle_status_command(
             .map_while(Result::ok) // Filter out lines with read errors
             .collect();
 
-        fetch_and_print_status_codes(urls, status_args).await; 
+        fetch_and_print_status_codes(urls, status_args).await;
     } else {
         // Handle file error shits
-        crate::log::error("No such file or directory");
+        error("No such file or directory");
     }
 
     Ok(())

@@ -16,10 +16,12 @@ pub fn error(msg: &str) {
     println!("{}: {}", "error".bold().color(Color::Red), msg);
 }
 
+#[allow(dead_code)]
 pub fn success(msg: &str) {
     println!("{}: {}", "success".bold().color(Color::Green), msg);
 }
 
+#[allow(dead_code)]
 pub fn warn(msg: &str) {
     println!("{}: {}", "warning".bold().color(Color::Yellow), msg);
 }
