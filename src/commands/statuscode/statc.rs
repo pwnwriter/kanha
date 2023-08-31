@@ -1,5 +1,4 @@
-use crate::interface::args::*;
-use clap::Parser;
+use crate::interface::StatusArgs;
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::sync::Arc;
@@ -32,26 +31,24 @@ pub async fn fetch_and_print_status_codes(urls: Vec<String>) {
 }
 
 // https://doc.rust-lang.org/rust-by-example/std_misc/file/read_lines.html
-//
 pub async fn read_lines(filename: &str) -> io::Result<io::Lines<io::BufReader<File>>> {
     let file = File::open(filename)?;
     Ok(io::BufReader::new(file).lines())
 }
 
-pub async fn status_code() {
-    let cli = Cli::parse();
-    match cli.command {
-        CommandChoice::status(status_args) => {
-            if let Ok(lines) = read_lines(&status_args.filename).await {
-                let urls: Vec<String> = lines
-                    .map_while(Result::ok)// Filter out lines with read errors
-                    .collect();
+pub async fn handle_status_command(
+    status_args: StatusArgs,
+) -> Result<(), Box<dyn std::error::Error>> {
+    if let Ok(lines) = read_lines(&status_args.filename).await {
+        let urls: Vec<String> = lines
+            .map_while(Result::ok) // Filter out lines with read errors
+            .collect();
 
-                fetch_and_print_status_codes(urls).await;
-            } else {
-                // Handle file shits
-                crate::log::error("No such file or directory");
-            }
-        }
+        fetch_and_print_status_codes(urls).await;
+    } else {
+        // Handle file shits
+        crate::log::error("No such file or directory");
     }
+
+    Ok(())
 }
