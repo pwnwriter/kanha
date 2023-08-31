@@ -21,9 +21,9 @@ pub async fn fetch_and_print_status_codes(urls: Vec<String>) {
         let client = Arc::clone(&client);
         async move {
             if let Ok(response) = client.get(&url).send().await {
-                crate::log::info_success(&format!("{},  [ {} ]", url, response.status()));
+                crate::log::success(&format!("{},  [ {} ]", url, response.status()));
             } else {
-                crate::log::info_error(&format!("{}, [ Failed to fetch ]", url));
+                crate::log::warn(&format!("{}, [ Failed to fetch ]", url));
             }
         }
     });
@@ -31,6 +31,8 @@ pub async fn fetch_and_print_status_codes(urls: Vec<String>) {
     futures::future::join_all(futures).await;
 }
 
+// https://doc.rust-lang.org/rust-by-example/std_misc/file/read_lines.html
+//
 pub async fn read_lines(filename: &str) -> io::Result<io::Lines<io::BufReader<File>>> {
     let file = File::open(filename)?;
     Ok(io::BufReader::new(file).lines())
@@ -48,7 +50,7 @@ pub async fn status_code() {
                 fetch_and_print_status_codes(urls).await;
             } else {
                 // Handle file shits
-                crate::log::info_error("No such file or directory");
+                crate::log::error("No such file or directory");
             }
         }
     }
