@@ -1,4 +1,5 @@
 use crate::{
+    commands::fuzz::fuzer::fuzz_url,
     commands::status::statuscode::handle_status_command,
     interface::args::{Cli, CommandChoice},
 };
@@ -17,7 +18,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
 
         CommandChoice::Fuzzer(fuzz_args) => {
-            crate::commands::fuzz::fuzer::fuzz_url(fuzz_args).await?;
+            fuzz_url(fuzz_args).await?;
         }
     }
 

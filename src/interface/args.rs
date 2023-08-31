@@ -12,6 +12,21 @@ pub struct Cli {
     pub command: CommandChoice,
 }
 
+#[derive(Subcommand)]
+#[command(arg_required_else_help = true)]
+#[command(author, version, about = show_splashes(), long_about = show_splashes())]
+pub enum CommandChoice {
+    /// Returns the HTTP response code of URLs
+    #[command(arg_required_else_help = true)]
+    #[clap(name = "status")]
+    Status(StatusArgs),
+
+    /// Fuzz URLs with the response code
+    #[command(arg_required_else_help = true)]
+    #[clap(name = "fuzz")]
+    Fuzzer(FuzzerArgs),
+}
+
 #[derive(Args)]
 pub struct StatusArgs {
     /// A url or a file containing multiple urls
@@ -32,15 +47,8 @@ pub struct FuzzerArgs {
     /// A file containing a list of possible wordlists
     #[arg(required = true, short, long)]
     pub filename: String,
-}
 
-#[derive(Subcommand)]
-pub enum CommandChoice {
-    /// Returns the HTTP response code of URLs
-    #[clap(name = "status")]
-    Status(StatusArgs),
-
-    /// Fuzz URLs with the response code
-    #[clap(name = "fuzzer")]
-    Fuzzer(FuzzerArgs),
+    /// Provide a url to fuzz
+    #[arg(required = true, short, long)]
+    pub url: String,
 }

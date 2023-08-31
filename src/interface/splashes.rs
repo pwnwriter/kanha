@@ -16,10 +16,10 @@ pub fn show_splashes() -> String {
     let logo = r"
     ╦╔═╔═╗╔╗╔╦ ╦╔═╗
     ╠╩╗╠═╣║║║╠═╣╠═╣
-    ╩ ╩╩ ╩╝╚╝╩ ╩╩ ╩ v.0.1
+    ╩ ╩╩ ╩╝╚╝╩ ╩╩ ╩ v.0.1.0
 "
     .bold()
-    .red();
+    .purple();
     let splash = SPLASHES[rng].italic();
     format!("{logo} {splash}")
 }
