@@ -1,3 +1,4 @@
+// The KANHA CLI.
 use crate::interface::splashes::show_splashes;
 use clap::{Args, Parser, Subcommand};
 
