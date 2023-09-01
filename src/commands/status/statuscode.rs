@@ -32,12 +32,22 @@ pub async fn fetch_and_print_status_codes(urls: Vec<String>, status_args: Status
 pub async fn handle_status_command(
     status_args: StatusArgs,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    if let Ok(lines) = crate::commands::kanha_helpers::read_lines(&status_args.filename).await {
-        let urls: Vec<String> = lines
-            .map_while(Result::ok) // Filter out lines with read errors
-            .collect();
+    match status_args.stdin {
+        true => {
+            let urls = crate::commands::kanha_helpers::read_urls_from_stdin()?;
+            fetch_and_print_status_codes(urls, status_args).await;
+        }
+        false => {
+            if let Some(filename) = &status_args.filename {
+                if let Ok(lines) = crate::commands::kanha_helpers::read_lines(filename).await {
+                    let urls: Vec<String> = lines
+                        .map_while(Result::ok) // Filter out lines with read errors
+                        .collect();
 
-        fetch_and_print_status_codes(urls, status_args).await;
+                    fetch_and_print_status_codes(urls, status_args).await;
+                }
+            }
+        }
     }
 
     Ok(())

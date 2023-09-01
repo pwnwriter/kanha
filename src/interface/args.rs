@@ -30,8 +30,12 @@ pub enum CommandChoice {
 #[derive(Args)]
 pub struct StatusArgs {
     /// A url or a file containing multiple urls
-    #[arg(required = true, short, long)]
-    pub filename: String,
+    #[arg(required = false, short, long)]
+    pub filename: Option<String>,
+
+    /// Reads input from the standard in
+    #[arg(long)]
+    pub stdin: bool,
 
     /// A list of the ports or separated by 2 dots
     #[arg(short, long)]

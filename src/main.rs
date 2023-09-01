@@ -20,6 +20,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         CommandChoice::Fuzzer(fuzz_args) => {
             fuzz_url(fuzz_args).await?;
         }
+
     }
 
     Ok(())
