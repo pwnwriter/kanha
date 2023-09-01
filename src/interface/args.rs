@@ -21,7 +21,7 @@ pub enum CommandChoice {
     #[clap(name = "status")]
     Status(StatusArgs),
 
-    /// Fuzz URLs with the response code
+    /// Fuzz URLs and return the response codes
     #[command(arg_required_else_help = true)]
     #[clap(name = "fuzz")]
     Fuzzer(FuzzerArgs),
@@ -50,9 +50,13 @@ pub struct StatusArgs {
 pub struct FuzzerArgs {
     /// A file containing a list of possible wordlists
     #[arg(required = true, short, long)]
-    pub filename: String,
+    pub wordlist: String,
 
     /// Provide a url to fuzz
     #[arg(required = true, short, long)]
     pub url: String,
+
+    /// Define the maximum concurrent tasks
+    #[arg(short, long, default_value = "10")]
+    pub tasks: usize,
 }

@@ -11,9 +11,12 @@ lazy_static::lazy_static! {
         .expect("Failed to create reqwest client");
 }
 
-pub async fn fetch_and_print_status_codes(urls: Vec<String>, status_args: StatusArgs) {
+pub async fn fetch_and_print_status_codes<T>(urls: Vec<String>, args: T)
+where
+    T: ArgsWithTasks,
+{
     let client = &HTTP_CLIENT;
-    let semaphore = Arc::new(Semaphore::new(status_args.tasks));
+    let semaphore = Arc::new(Semaphore::new(args.tasks()));
 
     let tasks = urls.into_iter().map(|url| {
         let client = client.clone();
@@ -21,12 +24,22 @@ pub async fn fetch_and_print_status_codes(urls: Vec<String>, status_args: Status
         async move {
             let _permit = semaphore.acquire().await.expect("Semaphore error");
             if let Ok(response) = client.get(&url).send().await {
-                println!("{} [{}]", url, response.status().as_u16()); // Print status code as integer
+                println!("{} [{}]", url, response.status().as_u16()); // Print status code as an integer
             }
         }
     });
 
     futures::future::join_all(tasks).await;
+}
+
+pub trait ArgsWithTasks {
+    fn tasks(&self) -> usize;
+}
+
+impl ArgsWithTasks for StatusArgs {
+    fn tasks(&self) -> usize {
+        self.tasks
+    }
 }
 
 pub async fn handle_status_command(
