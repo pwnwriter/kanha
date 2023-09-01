@@ -1,7 +1,5 @@
-use crate::{interface::StatusArgs, log::error};
+use crate::interface::StatusArgs;
 use reqwest::Client;
-use std::fs::File;
-use std::io::{self, BufRead};
 use std::sync::Arc;
 use tokio::sync::Semaphore;
 
@@ -12,7 +10,6 @@ lazy_static::lazy_static! {
         .build()
         .expect("Failed to create reqwest client");
 }
-
 
 pub async fn fetch_and_print_status_codes(urls: Vec<String>, status_args: StatusArgs) {
     let client = &HTTP_CLIENT;
@@ -32,24 +29,15 @@ pub async fn fetch_and_print_status_codes(urls: Vec<String>, status_args: Status
     futures::future::join_all(tasks).await;
 }
 
-// https://doc.rust-lang.org/rust-by-example/std_misc/file/read_lines.html
-pub async fn read_lines(filename: &str) -> io::Result<io::Lines<io::BufReader<File>>> {
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
-}
-
 pub async fn handle_status_command(
     status_args: StatusArgs,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    if let Ok(lines) = read_lines(&status_args.filename).await {
+    if let Ok(lines) = crate::commands::kanha_helpers::read_lines(&status_args.filename).await {
         let urls: Vec<String> = lines
             .map_while(Result::ok) // Filter out lines with read errors
             .collect();
 
         fetch_and_print_status_codes(urls, status_args).await;
-    } else {
-        // Handle file error shits
-        error("No such file or directory");
     }
 
     Ok(())

@@ -1,5 +1,5 @@
 use crate::{
-    commands::fuzz::fuzer::fuzz_url,
+    commands::fuzz::fuzzer::fuzz_url,
     commands::status::statuscode::handle_status_command,
     interface::args::{Cli, CommandChoice},
 };
