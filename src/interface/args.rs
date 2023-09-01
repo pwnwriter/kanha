@@ -25,6 +25,16 @@ pub enum CommandChoice {
     #[command(arg_required_else_help = true)]
     #[clap(name = "fuzz")]
     Fuzzer(FuzzerArgs),
+
+    /// Reverse dns lookup
+    #[command(arg_required_else_help = true)]
+    #[clap(name = "rdns")]
+    Rdns(RdnsArgs),
+
+    /// Check possible subdomain takeover
+    #[command(arg_required_else_help = true)]
+    #[clap(name = "takeover")]
+    Takeover(TakeoverArgs),
 }
 
 #[derive(Args)]
@@ -59,4 +69,22 @@ pub struct FuzzerArgs {
     /// Define the maximum concurrent tasks
     #[arg(short, long, default_value = "10")]
     pub tasks: usize,
+}
+
+#[derive(Args)]
+pub struct RdnsArgs {
+    /// a file containing a list of possible wordlists
+    #[arg(required = true, short, long)]
+    pub filename: String,
+
+    /// Reads input from the standard in
+    #[arg(long)]
+    pub stdin: bool,
+}
+
+#[derive(Args)]
+pub struct TakeoverArgs {
+    /// a file containing a list of possible wordlists
+    #[arg(required = true, short, long)]
+    pub filename: String,
 }
