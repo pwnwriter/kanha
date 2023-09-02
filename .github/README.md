@@ -1,5 +1,5 @@
 <p align="center"><img src="https://github.com/pwnwriter/kanha/blob/logos/kanha-default.png" width="400px" height="250px" >
-<h4 align="center"><strong><code>Kanha</code></strong> - The next-gen web application pentesting suite written in rust 🦀</h4> </h6>
+<h4 align="center"><strong><code>Kanha</code></strong> - A web-app pentesting suite written in rust 🦀</h4> </h6>
     
 <h6 align="center">
   <a href="https://kanha.pwnwriter.xyz">Installation</a>
