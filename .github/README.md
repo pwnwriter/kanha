@@ -22,7 +22,7 @@
 </p>
 
 <img src="https://github.com/pwnwriter/kanha/blob/logos/kanha-help.png" alt="img" align="right" width="400px" height ="300">
-
+<br>
 
 [**`Kanha`**](/) is a tool that can help you perform, a variety of attacks based on the target domain . With just `kanha` you can do, [***`Fuzzing`***](https://en.wikipedia.org/wiki/Fuzzing), [***`Reverse dns lookup`***](https://en.wikipedia.org/wiki/Reverse_DNS_lookup),
 [***`common http response`***](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), [***`subdomain takeover detection`***](https://en.wikipedia.org/wiki/Domain_hijacking) and many [**`more`**](/src/commands). 
