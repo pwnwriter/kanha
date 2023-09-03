@@ -8,7 +8,7 @@ readme = "README.md"
 repository = "https://github.com/pwnwriter/kanha"
 homepage = "https://github.com/pwnwriter/kanha.git"
 license = "MIT"
-keywords = ["Playground", "kanha", "rust-lang"]
+keywords = ["recon", "red_teaming", "pentesting", "osint"]
 categories = ["accessibility", "web-programming", "command-line" ]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

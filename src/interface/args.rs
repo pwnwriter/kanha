@@ -16,12 +16,12 @@ pub struct Cli {
 #[command(arg_required_else_help = true)]
 #[command(author, version, about = show_splashes(), long_about = show_splashes())]
 pub enum CommandChoice {
-    /// Returns the HTTP response code of URLs
+    /// Just return the HTTP response code of URLs
     #[command(arg_required_else_help = true)]
     #[clap(name = "status")]
     Status(StatusArgs),
 
-    /// Fuzz URLs and return the response codes
+    /// Fuzz a URL and return the response codes
     #[command(arg_required_else_help = true)]
     #[clap(name = "fuzz")]
     Fuzzer(FuzzerArgs),
@@ -86,5 +86,6 @@ pub struct RdnsArgs {
 pub struct TakeoverArgs {
     /// a file containing a list of possible wordlists
     #[arg(required = true, short, long)]
-    pub filename: String,
+    pub filename: Option<String>,
+    
 }
