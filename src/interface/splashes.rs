@@ -3,12 +3,12 @@ use rand::Rng;
 pub static SPLASHES: &[&str] = &[
     "There are reasons to use rust. - PwnWriter",
     "whatsoever a man soweth, that shall he also reap. - Dylanaraps",
-    "In the world of programming, curiosity is the compass. - Ashokcpg",
     "Bounty plss, this time - Knight_yagami",
     "Hacking in a nutshell",
     "Compile once, Hack forever - PwnWriter",
     "I want my system to hack!! woo",
     "Hello everyone, this is your daily dose for Bounty - PwnWriter",
+    "Why no work?, Bro RTFM :/"
 ];
 
 pub fn show_splashes() -> String {
