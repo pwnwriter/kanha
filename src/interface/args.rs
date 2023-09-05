@@ -86,7 +86,7 @@ pub struct RdnsArgs {
 pub struct TakeoverArgs {
     /// A json file containing signature values of different services
     #[arg(required = true, short, long)]
-    pub json_file: Option<String>,
+    pub json_file: String,
 
     /// A file containing a list of urls
     #[arg(required = false, short, long)]
