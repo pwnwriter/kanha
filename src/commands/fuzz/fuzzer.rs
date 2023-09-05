@@ -22,7 +22,7 @@ pub async fn fuzz_url(fuzzer_args: FuzzerArgs) -> Result<(), Box<dyn std::error:
         abort("The URL must contain the 'FUZZ' keyword for fuzzing.")
     }
 
-    // https://www.reddit.com/r/learnrust/comments/pcwp31/comment/ham0vpa/?utm_source=share&utm_medium=web2x&context=3
+    // https://users.rust-lang.org/t/how-far-to-take-iterators-to-avoid-for-loops/30167
     let formatted_urls: Vec<String> = lines
         .map(Result::ok)
         .filter_map(|line_result| line_result.map(|line| url_to_fuzz.replace("FUZZ", &line)))

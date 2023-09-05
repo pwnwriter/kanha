@@ -1,7 +1,5 @@
 use crate::interface::StatusArgs;
-use reqwest::Client;
-use std::sync::Arc;
-use tokio::sync::Semaphore;
+use {reqwest::Client, std::sync::Arc, tokio::sync::Semaphore};
 
 // Reuse the reqwest client instance
 lazy_static::lazy_static! {

@@ -84,8 +84,11 @@ pub struct RdnsArgs {
 
 #[derive(Args)]
 pub struct TakeoverArgs {
-    /// a file containing a list of possible wordlists
+    /// A json file containing signature values of different services
     #[arg(required = true, short, long)]
+    pub json_file: Option<String>,
+
+    /// A file containing a list of urls
+    #[arg(required = false, short, long)]
     pub filename: Option<String>,
-    
 }

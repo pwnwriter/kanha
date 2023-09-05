@@ -2,18 +2,14 @@ pub mod fuzz;
 pub mod rdns;
 pub mod status;
 pub mod takeover;
-pub use fuzz::*;
-pub use rdns::*;
-pub use status::*;
-pub use takeover::*;
+pub use {fuzz::*, rdns::*, status::*, takeover::*};
 
 #[allow(dead_code)]
 #[allow(unused_variables)]
 pub mod kanha_helpers {
+    use crate::log::abort;
     use std::fs::File;
     use std::io::{self, BufRead};
-
-    use crate::log::error;
 
     /// https://doc.rust-lang.org/rust-by-example/std_misc/rile/read_lines.html
     /// Reads a file line by line
@@ -21,9 +17,7 @@ pub mod kanha_helpers {
         match File::open(filename) {
             Ok(file) => Ok(io::BufReader::new(file).lines()),
             Err(_) => {
-                error("No such file in this location");
-
-                Err(io::Error::new(io::ErrorKind::NotFound, "No such file"))
+                abort("No such file in this location");
             }
         }
     }
@@ -48,7 +42,4 @@ pub mod kanha_helpers {
 
         Ok(urls)
     }
-
-
-
 }
