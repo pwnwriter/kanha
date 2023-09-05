@@ -1,0 +1,12 @@
+{
+	"platforms": [
+		{
+			"platform": "GitHub Pages",
+			"content": [
+				"<p><strong>There isn't a GitHub Pages site here.</strong></p>",
+				"For root URLs (like http://example.com/) you must provide an index.html file"
+			]
+		}
+        
+	]
+}

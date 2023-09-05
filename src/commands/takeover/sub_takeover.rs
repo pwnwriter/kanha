@@ -1,6 +1,6 @@
-use crate::interface::TakeoverArgs;
+use crate::{commands::kanha_helpers::read_lines, interface::TakeoverArgs};
+use reqwest;
 use serde::{Deserialize, Serialize};
-use serde_json::{self, Value};
 
 #[derive(Debug, Deserialize, Serialize)]
 struct PlatformInfo {
@@ -10,31 +10,32 @@ struct PlatformInfo {
 #[derive(Debug, Deserialize, Serialize)]
 struct Platform {
     platform: String,
-    content: Value,
+    content: Vec<String>,
 }
 
 // Guide :- https://www.hackerone.com/application-security/guide-subdomain-takeovers
 pub async fn subdomain_takeover(
     takeover_args: TakeoverArgs,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    if let Some(filename) = takeover_args.filename {
+        let urls = read_lines(&filename).await?;
         let json_file = takeover_args.json_file;
         let json_file_path = format!("{}", json_file);
-        println!("{}", json_file_path);
         let json_file_contents = tokio::fs::read_to_string(&json_file_path).await?;
         let platform_info: PlatformInfo = serde_json::from_str(&json_file_contents)?;
 
-        println!("{:?}", platform_info);
+        for url in urls {
+            let url = url?.parse::<reqwest::Url>()?;
+            let body = reqwest::get(url.clone()).await?.text().await?;
 
-        let body = reqwest::get("https://letscheckthissite.github.io")
-            .await?
-            .text()
-            .await?;
-
-        if body.contains("<p><strong>There isn't a GitHub Pages site here.</strong></p>") {
-            println!("Possible subdomain takeover: ");
-        
-
-        // Check if the response body contains the content of any platform
+            for platform in &platform_info.platforms {
+                for content in &platform.content {
+                    if body.contains(content) {
+                        println!("Possible subdomain takeover: {}", url);
+                    }
+                }
+            }
+        }
     }
     Ok(())
 }
