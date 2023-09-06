@@ -31,4 +31,10 @@ jobs:
       - name: Build
         run: |
           cargo build --verbose
-          cargo run -- status -f tests/hosts.txt
+
+      - name: Test subcommands
+        run: |
+          cargo run -- status -f tests/test_status.txt
+          cargo run -- takeover -j tests/signatures_full.json -f tests/test_takeover.txt
+          cargo run -- fuzz  -w tests/test_fuzzing.txt -u https://pwnwriter.xyz/FUZZ
+          cargo run -- rdns -f tests/test_rdns.txt
