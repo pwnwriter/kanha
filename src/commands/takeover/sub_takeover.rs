@@ -1,3 +1,5 @@
+// Guide: https://www.hackerone.com/application-security/guide-subdomain-takeovers
+
 use crate::{commands::kanha_helpers::read_lines, interface::TakeoverArgs};
 use colored::*;
 use reqwest;
@@ -21,7 +23,7 @@ enum Content {
     Multiple(Vec<String>),
 }
 
-// Guide: https://www.hackerone.com/application-security/guide-subdomain-takeovers
+#[allow(clippy::useless_format)]
 pub async fn subdomain_takeover(
     takeover_args: TakeoverArgs,
 ) -> Result<(), Box<dyn std::error::Error>> {
