@@ -12,6 +12,11 @@ pub fn info(msg: &str, color: Color) {
     println!("{}: {}", "Info".bold().color(color), msg);
 }
 
+#[allow(dead_code)]
+pub fn message(msg: &str, color: Color) {
+    println!("{}", msg.bold().color(color));
+}
+
 pub fn error(msg: &str) {
     println!("{}: {}", "Error".bold().color(Color::Red), msg);
 }
