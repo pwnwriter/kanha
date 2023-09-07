@@ -1,4 +1,4 @@
-use crate::interface::StatusArgs;
+use crate::{interface::StatusArgs, commands::kanha_helpers::read_urls_from_stdin};
 use {reqwest::Client, std::sync::Arc, tokio::sync::Semaphore};
 
 // Reuse the reqwest client instance
@@ -45,7 +45,7 @@ pub async fn handle_status_command(
 ) -> Result<(), Box<dyn std::error::Error>> {
     match status_args.stdin {
         true => {
-            let urls = crate::commands::kanha_helpers::read_urls_from_stdin()?;
+            let urls = read_urls_from_stdin()?;
             fetch_and_print_status_codes(urls, status_args).await;
         }
         false => {

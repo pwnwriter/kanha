@@ -13,6 +13,7 @@ pub mod kanha_helpers {
 
     /// https://doc.rust-lang.org/rust-by-example/std_misc/rile/read_lines.html
     /// Reads a file line by line
+
     pub async fn read_lines(filename: &str) -> io::Result<io::Lines<io::BufReader<File>>> {
         match File::open(filename) {
             Ok(file) => Ok(io::BufReader::new(file).lines()),
@@ -27,27 +28,18 @@ pub mod kanha_helpers {
 
     /// https://www.youtube.com/watch?v=K_wnB9ibCMg&t=1078s
     /// Reads user input from stdin line by line
-    pub fn read_urls_from_stdin() -> Result<Vec<String>, Box<dyn std::error::Error>> {
-        let mut input = String::new();
+    pub fn read_urls_from_stdin() -> io::Result<Vec<String>> {
         let mut urls = Vec::new();
-
-        loop {
-            input.clear();
-            match std::io::stdin().lock().read_line(&mut input) {
-                Ok(0) => break, // EOF reached
-                Ok(_) => urls.push(input.trim().to_string()),
-                Err(err) => return Err(Box::new(err)),
+        let stdin = io::stdin();
+        let locked_stdin = stdin.lock();
+        for line in locked_stdin.lines() {
+            match line {
+                Ok(line_content) => urls.push(line_content),
+                Err(err) => abort("Failed to read from stdin"),
             }
         }
-
         Ok(urls)
     }
 
-    pub fn cheatsheet() {
-
-
-        
-    }
+    pub fn cheatsheet() {}
 }
-
-

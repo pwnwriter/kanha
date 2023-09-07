@@ -82,7 +82,7 @@ pub struct RdnsArgs {
     pub stdin: bool,
 }
 
-#[derive(Args)]
+#[derive(Args, Clone)]
 pub struct TakeoverArgs {
     /// A json file containing signature values of different services
     #[arg(required = true, short, long)]
@@ -91,4 +91,8 @@ pub struct TakeoverArgs {
     /// A file containing a list of urls
     #[arg(required = false, short, long)]
     pub filename: Option<String>,
+
+    /// Reads input from the standard in
+    #[arg(long)]
+    pub stdin: bool,
 }
