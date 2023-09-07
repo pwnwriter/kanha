@@ -14,10 +14,10 @@ categories = ["accessibility", "web-programming", "command-line" ]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-clap = { version = "4.3.12", features = ["derive", "string"] }
-reqwest = { version = "0.11.18", default-features = false, features = ["json", "rustls-tls"] }
-tokio = { version = "1.29.1", features = ["full"] }  
-serde = { version = "1.0.175", features = ["derive"] }
+clap = { version = "4.4.2", features = ["derive", "string"] }
+reqwest = { version = "0.11.20", default-features = false, features = ["json", "rustls-tls"] }
+tokio = { version = "1.32.0", features = ["full"] }  
+serde = { version = "1.0.188", features = ["derive"] }
 colored = "2.0.4"
 rand = "0.8.5"
 futures = "0.3.28"

@@ -49,15 +49,12 @@ pub async fn subdomain_takeover(
 
     Ok(())
 }
+const TAKEOVER_MSG: &str = "Possible subdomain takeover";
 
-#[allow(clippy::useless_format)]
 async fn process_takeover_urls(urls: Vec<String>, takeover_args: &TakeoverArgs) {
-    let json_file = &takeover_args.json_file;
-    let json_file_path = format!("{}", json_file);
+    let json_file_path = takeover_args.json_file.to_string();
     let json_file_contents = tokio::fs::read_to_string(&json_file_path).await.unwrap();
     let platform_info: PlatformInfo = serde_json::from_str(&json_file_contents).unwrap();
-
-    let takeover_msg = "Possible subdomain takeover";
 
     for url_str in urls {
         let url = url_str.parse::<reqwest::Url>().unwrap();
@@ -76,7 +73,7 @@ async fn process_takeover_urls(urls: Vec<String>, takeover_args: &TakeoverArgs) 
                     if body.contains(content) {
                         println!(
                             "{} [{}] -> [{}]",
-                            takeover_msg.red().bold(),
+                            TAKEOVER_MSG.red().bold(),
                             platform_name.red().bold(),
                             url
                         );
@@ -87,7 +84,7 @@ async fn process_takeover_urls(urls: Vec<String>, takeover_args: &TakeoverArgs) 
                         if body.contains(content) {
                             println!(
                                 "{} [{}] -> [{}]",
-                                takeover_msg.blue().bold(),
+                                TAKEOVER_MSG.blue().bold(),
                                 platform_name.red().bold(),
                                 url
                             );
