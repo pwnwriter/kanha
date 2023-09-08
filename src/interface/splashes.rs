@@ -1,3 +1,5 @@
+//LICENSE: https://en.wikipedia.org/wiki/Creative_Commons_license
+
 use colored::Colorize;
 use rand::Rng;
 pub static SPLASHES: &[&str] = &[
@@ -5,6 +7,7 @@ pub static SPLASHES: &[&str] = &[
     "whatsoever a man soweth, that shall he also reap. - Dylanaraps",
     "Bounty plss, this time - Knight_yagami",
     "Hacking in a nutshell",
+    "In the world of programming, curiosity is the compass. - Ashokcpg",
     "Compile once, Hack forever - PwnWriter",
     "I want my system to hack!! woo",
     "Hello everyone, this is your daily dose for Bounty - PwnWriter",
