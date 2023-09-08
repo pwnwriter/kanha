@@ -52,7 +52,7 @@ jobs:
         shell: bash
         run: |
           mkdir release/
-          cp {LICENSE,README.md} release/
+          cp LICENSE .github/README.md  -r release/
           cp target/${{ matrix.config.TARGET }}/release/kanha release/
           mv release/ kanha-${{ env.RELEASE_VERSION }}/
 
