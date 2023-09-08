@@ -1,5 +1,4 @@
-pub mod splashes;
 pub mod args;
-pub use splashes::*;
+pub mod splashes;
 pub use args::*;
-
+pub use splashes::*;

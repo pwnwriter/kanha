@@ -1,4 +1,4 @@
-use crate::{interface::StatusArgs, commands::kanha_helpers::read_urls_from_stdin};
+use crate::{commands::kanha_helpers::read_urls_from_stdin, interface::StatusArgs};
 use {reqwest::Client, std::sync::Arc, tokio::sync::Semaphore};
 
 // Reuse the reqwest client instance

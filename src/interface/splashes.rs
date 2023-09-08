@@ -8,7 +8,7 @@ pub static SPLASHES: &[&str] = &[
     "Compile once, Hack forever - PwnWriter",
     "I want my system to hack!! woo",
     "Hello everyone, this is your daily dose for Bounty - PwnWriter",
-    "Why no work?, Bro RTFM :/"
+    "Why no work?, Bro RTFM :/",
 ];
 
 pub fn show_splashes() -> String {
