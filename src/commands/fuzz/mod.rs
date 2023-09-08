@@ -1,2 +1,2 @@
 pub mod fuzzer;
-pub use  fuzzer::*;
+pub use fuzzer::*;

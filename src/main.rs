@@ -1,8 +1,8 @@
 use crate::{
-    commands::fuzz::fuzzer::fuzz_url,
-    commands::rdns::rev_dns::reverse_dns_lookup,
-    commands::status::statuscode::handle_status_command,
-    commands::takeover::sub_takeover::subdomain_takeover,
+    commands::{
+        fuzz::fuzzer::fuzz_url, rdns::rev_dns::reverse_dns_lookup,
+        status::statuscode::handle_status_command, takeover::sub_takeover::subdomain_takeover,
+    },
     interface::args::{Cli, CommandChoice},
 };
 use clap::Parser;
@@ -24,4 +24,3 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-
