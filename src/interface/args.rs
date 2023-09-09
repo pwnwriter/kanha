@@ -70,8 +70,8 @@ pub struct FuzzerArgs {
 #[derive(Args)]
 pub struct RdnsArgs {
     /// a file containing a list of possible wordlists
-    #[arg(required = true, short, long)]
-    pub filename: String,
+    #[arg(required = false, short, long)]
+    pub filename: Option<String>,
 
     /// Reads input from the standard in
     #[arg(long)]

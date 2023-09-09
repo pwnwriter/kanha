@@ -28,15 +28,13 @@ pub mod kanha_helpers {
 
     /// https://www.youtube.com/watch?v=K_wnB9ibCMg&t=1078s
     /// Reads user input from stdin line by line
-    pub fn read_urls_from_stdin() -> io::Result<Vec<String>> {
+    pub fn read_urls_from_stdin() -> Result<Vec<String>, Box<dyn std::error::Error>> {
         let mut urls = Vec::new();
         let stdin = io::stdin();
         let locked_stdin = stdin.lock();
         for line in locked_stdin.lines() {
-            match line {
-                Ok(line_content) => urls.push(line_content),
-                Err(err) => abort("Failed to read from stdin"),
-            }
+            let line_content = line?;
+            urls.push(line_content);
         }
         Ok(urls)
     }
