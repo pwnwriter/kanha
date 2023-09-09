@@ -6,8 +6,6 @@
   ⦾
   <a href="https://github.com/pwnwriter/kanha#-Subcommands"><code>Subcommands</code></a>
   ⦾
-  <a href="https://github.com/pwnwriter/kanha#-Features"><code>Features</code></a>
-  ⦾
   <a href="https://github.com/pwnwriter/kanha#-contributing"><code>Contribute</code></a>
 </p> </h6>
 <p align="center">
@@ -195,11 +193,15 @@ Built from the ground up with performance, ease of use, and portability in mind 
   - 🐎 Add new [subcommand](/src/commands).
   - 🧑‍🚒 Fix docx // improve code quality
 
+## Also see 👀
+- [`haylxon`](https://github.com/pwnwriter/haylxon) :- Blazingly fast tool to grab screenshot of urls/webpages written in rust 🦀
+- [`httpx`](https://github.com/projectdiscovery/httpx) :- httpx is a fast and multi-purpose HTTP toolkit.
+- [`ffuf`](https://github.com/ffuf/ffuf) :- Fast web fuzzer written in Go
+
 ## License 🔐
  As always, this project is also licensed under the [**`MIT LICENSE`**](/LICENSE) 
-
-&nbsp;
-
+ &nbsp;
+ 
 <p align="center"><img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/footers/gray0_ctp_on_line.svg?sanitize=true" /></p>
 <p align="center">Copyright &copy; 2023<a href="https://pwnwriter.xyz" target="_blank"> pwnwriter xyz </a> ☘️ </p> 
   
