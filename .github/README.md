@@ -21,7 +21,7 @@
 [**`Kanha`**](/) is a tool that can help you perform, a variety of attacks based on the target domain . With just `kanha` you can do, [***`Fuzzing`***](https://en.wikipedia.org/wiki/Fuzzing), [***`Reverse dns lookup`***](https://en.wikipedia.org/wiki/Reverse_DNS_lookup),
 [***`common http response`***](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), [***`subdomain takeover detection`***](https://en.wikipedia.org/wiki/Domain_hijacking) and many [**`more`**](/src/commands). 
 
-The project is inspird by [`mini.nvim`](https://github.com/echasnovski/mini.nvim), basically helping you to be productive with less numbers of *tools(plugins)* installed on your system and be unobtrusive and function as a standalone **`single binary`** by out of the box.
+The project is inspird by [`mini.nvim`](https://github.com/echasnovski/mini.nvim), basically helping you to be productive with less numbers of *tools(plugins)* installed on your system and be unobtrusive and function as a standalone **`single binary`** out of the box.
 
 Built from the ground up with performance, ease of use, and portability in mind in your favourite programming lang [**`rust`**](https://www.rust-lang.org/) 💝
 
@@ -33,7 +33,7 @@ Built from the ground up with performance, ease of use, and portability in mind 
 
 ## 🐱 Installation 
     
-  <details> <summary><code>🦯Binary </code></summary>
+  <details> <summary><code>🪄 Binary </code></summary>
     &nbsp;
 
   - You can directly download the [**binary**](https://github.com/pwnwriter/kanha/releases) of your arch and run it.
@@ -75,7 +75,7 @@ Built from the ground up with performance, ease of use, and portability in mind 
 </details>
 
 ## 🌈 Subcommands
-- ➊ Status :- Just return the HTTP response code of URLs
+- ➊ `Status` :- Just return the HTTP response code of URLs
 
   <details>
   <summary>👻 Help</summary>
@@ -141,21 +141,25 @@ Built from the ground up with performance, ease of use, and portability in mind 
   &nbsp;
       
   ```bash
-  kanha rdns  -h
-  Reverse dns lookup
+  
+  $ kanha rdns  -h
+    Reverse dns lookup
 
-  Usage: kanha rdns [OPTIONS] --filename <FILENAME>
+    Usage: kanha rdns [OPTIONS] --filename <FILENAME>
 
-  Options:
-    -f, --filename <FILENAME>  a file containing a list of possible wordlists
-    -h, --help                 Print help
-    -V, --version              Print version
+    Options:
+      -f, --filename <FILENAME>  a file containing a list of possible wordlists
+          --stdin                Reads input from the standard in
+      -h, --help                 Print help
+      -V, --version              Print version
   ```
     <details>
   <summary>🦊 Screenshots </summary>
       &nbsp;
       
   ![rdns](https://github.com/pwnwriter/kanha/assets/90331517/44f2f7f1-9f47-4794-87e9-1366b4a3e443)
+  ![rdns-stdin](https://github.com/pwnwriter/kanha/assets/90331517/9ad5e5b6-711e-4396-a46f-5c190000e185)
+
   </details>
 </details>
 
@@ -194,7 +198,7 @@ Built from the ground up with performance, ease of use, and portability in mind 
   - 🧑‍🚒 Fix docx // improve code quality
 
 ## Also see 👀
-- [`haylxon`](https://github.com/pwnwriter/haylxon) :- Blazingly fast tool to grab screenshot of urls/webpages written in rust 🦀
+- [`haylxon`](https://github.com/pwnwriter/haylxon) :- Blazingly fast tool to grab screenshots of your domain list right from terminal written in rust 🦀
 - [`httpx`](https://github.com/projectdiscovery/httpx) :- httpx is a fast and multi-purpose HTTP toolkit.
 - [`ffuf`](https://github.com/ffuf/ffuf) :- Fast web fuzzer written in Go
 
