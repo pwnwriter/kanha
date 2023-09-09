@@ -4,16 +4,13 @@ pub mod status;
 pub mod takeover;
 pub use {fuzz::*, rdns::*, status::*, takeover::*};
 
-#[allow(dead_code)]
-#[allow(unused_variables)]
 pub mod kanha_helpers {
     use crate::log::abort;
     use std::fs::File;
     use std::io::{self, BufRead};
 
     /// https://doc.rust-lang.org/rust-by-example/std_misc/rile/read_lines.html
-    /// Reads a file line by line
-
+    /// Reads a file line by line and returns an iterator for reading those lines, or aborts with a message if the file doesn't exist.
     pub async fn read_lines(filename: &str) -> io::Result<io::Lines<io::BufReader<File>>> {
         match File::open(filename) {
             Ok(file) => Ok(io::BufReader::new(file).lines()),
@@ -23,21 +20,11 @@ pub mod kanha_helpers {
         }
     }
 
-    /// Adds http(s) protocol to urls if not already
-    pub fn add_protocol(urls: Vec<String>) {}
-
     /// https://www.youtube.com/watch?v=K_wnB9ibCMg&t=1078s
-    /// Reads user input from stdin line by line
+    /// Reads lines from the standard input, collects them into a Vec<String> using the collect method, and returns the result
     pub fn read_urls_from_stdin() -> Result<Vec<String>, Box<dyn std::error::Error>> {
-        let mut urls = Vec::new();
         let stdin = io::stdin();
-        let locked_stdin = stdin.lock();
-        for line in locked_stdin.lines() {
-            let line_content = line?;
-            urls.push(line_content);
-        }
-        Ok(urls)
+        let urls: Result<Vec<String>, io::Error> = stdin.lock().lines().collect();
+        urls.map_err(|err| err.into())
     }
-
-    pub fn cheatsheet() {}
 }
