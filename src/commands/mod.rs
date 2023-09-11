@@ -2,6 +2,7 @@ pub mod fuzz;
 pub mod rdns;
 pub mod status;
 pub mod takeover;
+pub mod urldencode;
 pub use {fuzz::*, rdns::*, status::*, takeover::*};
 
 pub mod kanha_helpers {

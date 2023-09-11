@@ -1,7 +1,7 @@
-//LICENSE: https://en.wikipedia.org/wiki/Creative_Commons_license
+// LICENSE: https://en.wikipedia.org/wiki/Creative_Commons_license
 
 use colored::Colorize;
-use rand::Rng;
+
 pub static SPLASHES: &[&str] = &[
     "There are reasons to use rust. - PwnWriter",
     "whatsoever a man soweth, that shall he also reap. - Dylanaraps",
@@ -14,8 +14,19 @@ pub static SPLASHES: &[&str] = &[
     "Why no work?, Bro RTFM :/",
 ];
 
+// Not using rand crate anymore
+// https://users.rust-lang.org/t/cheap-random-number-generator-with-std/90589/6
+fn generate_random_number() -> usize {
+    let current_time = std::time::SystemTime::now()
+        .duration_since(std::time::SystemTime::UNIX_EPOCH)
+        .expect("Time went backwards")
+        .as_micros();
+
+    (current_time % SPLASHES.len() as u128) as usize
+}
+
 pub fn show_splashes() -> String {
-    let rng = rand::thread_rng().gen_range(0..SPLASHES.len());
+    let rng = generate_random_number();
     let logo = r"
     ╦╔═╔═╗╔╗╔╦ ╦╔═╗
     ╠╩╗╠═╣║║║╠═╣╠═╣

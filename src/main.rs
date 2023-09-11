@@ -2,6 +2,7 @@ use crate::{
     commands::{
         fuzz::fuzzer::fuzz_url, rdns::rev_dns::reverse_dns_lookup,
         status::statuscode::handle_status_command, takeover::sub_takeover::subdomain_takeover,
+        urldencode::decode::decode_urls,
     },
     interface::args::{Cli, CommandChoice},
 };
@@ -20,6 +21,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         CommandChoice::Fuzzer(fuzz_args) => fuzz_url(fuzz_args).await?,
         CommandChoice::Rdns(rdns_args) => reverse_dns_lookup(rdns_args).await?,
         CommandChoice::Takeover(takeover_args) => subdomain_takeover(takeover_args).await?,
+        CommandChoice::Dencode(dencode_args) => decode_urls(dencode_args).await?,
     }
 
     Ok(())

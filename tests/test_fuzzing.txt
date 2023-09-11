@@ -21,4 +21,7 @@
 .passes
 .passwd
 .password
+projects
+guestbook
+blog
 

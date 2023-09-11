@@ -35,36 +35,49 @@ pub enum CommandChoice {
     #[command(arg_required_else_help = true)]
     #[clap(name = "takeover")]
     Takeover(TakeoverArgs),
+
+    /// (De|En) code urls
+    #[command(arg_required_else_help = true)]
+    #[clap(name = "urldencode")]
+    Dencode(DencodeArgs),
 }
 
-#[derive(Args)]
+#[derive(Args, Clone)]
 pub struct StatusArgs {
     /// A url or a file containing multiple urls
     #[arg(required = false, short, long)]
     pub filename: Option<String>,
 
+    /// Define the maximum concurrent tasks
+    #[arg(short, long, default_value = "10")]
+    pub tasks: usize,
+
     /// Reads input from the standard in
     #[arg(long)]
     pub stdin: bool,
 
-    /// Define the maximum concurrent tasks
-    #[arg(short, long, default_value = "10")]
-    pub tasks: usize,
+    /// Define your status code for selective exclusion.
+    #[arg(long)]
+    pub exclude: Option<String>,
 }
 
 #[derive(Args)]
 pub struct FuzzerArgs {
-    /// A file containing a list of possible wordlists
+    /// A file containing a list of possible wordlists.
     #[arg(required = true, short, long)]
     pub wordlist: String,
 
-    /// Provide a url to fuzz
+    /// Provide a url to fuzz.
     #[arg(required = true, short, long)]
     pub url: String,
 
-    /// Define the maximum concurrent tasks
+    /// Define the maximum concurrent tasks.
     #[arg(short, long, default_value = "10")]
     pub tasks: usize,
+
+    /// Define your status code for selective exclusion.
+    #[arg(long)]
+    pub exclude: Option<String>,
 }
 
 #[derive(Args)]
@@ -91,4 +104,15 @@ pub struct TakeoverArgs {
     /// Reads input from the standard in
     #[arg(long)]
     pub stdin: bool,
+}
+
+#[derive(Args)]
+pub struct DencodeArgs {
+    /// Provide a url to encode
+    #[arg(required = false, short, long)]
+    pub encode: Option<String>,
+
+    /// Provide a url to dencode
+    #[arg(required = false, short, long)]
+    pub decode: Option<String>,
 }
