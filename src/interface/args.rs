@@ -1,5 +1,5 @@
-use crate::interface::splashes::show_splashes;
-use clap::{Args, Parser, Subcommand};
+use crate::interface::{splashes::show_splashes, sub_args::*};
+use clap::{Parser, Subcommand};
 
 /// The KANHA CLI.
 #[derive(Parser)]
@@ -31,7 +31,7 @@ pub enum CommandChoice {
     #[clap(name = "rdns")]
     Rdns(RdnsArgs),
 
-    /// Check possible subdomain takeover
+    /// Check possible subdomain takeover vulnerability
     #[command(arg_required_else_help = true)]
     #[clap(name = "takeover")]
     Takeover(TakeoverArgs),
@@ -40,79 +40,9 @@ pub enum CommandChoice {
     #[command(arg_required_else_help = true)]
     #[clap(name = "urldencode")]
     Dencode(DencodeArgs),
-}
 
-#[derive(Args, Clone)]
-pub struct StatusArgs {
-    /// A url or a file containing multiple urls
-    #[arg(required = false, short, long)]
-    pub filename: Option<String>,
-
-    /// Define the maximum concurrent tasks
-    #[arg(short, long, default_value = "10")]
-    pub tasks: usize,
-
-    /// Reads input from the standard in
-    #[arg(long)]
-    pub stdin: bool,
-
-    /// Define your status code for selective exclusion.
-    #[arg(long)]
-    pub exclude: Option<String>,
-}
-
-#[derive(Args)]
-pub struct FuzzerArgs {
-    /// A file containing a list of possible wordlists.
-    #[arg(required = true, short, long)]
-    pub wordlist: String,
-
-    /// Provide a url to fuzz.
-    #[arg(required = true, short, long)]
-    pub url: String,
-
-    /// Define the maximum concurrent tasks.
-    #[arg(short, long, default_value = "10")]
-    pub tasks: usize,
-
-    /// Define your status code for selective exclusion.
-    #[arg(long)]
-    pub exclude: Option<String>,
-}
-
-#[derive(Args)]
-pub struct RdnsArgs {
-    /// a file containing a list of possible wordlists
-    #[arg(required = false, short, long)]
-    pub filename: Option<String>,
-
-    /// Reads input from the standard in
-    #[arg(long)]
-    pub stdin: bool,
-}
-
-#[derive(Args, Clone)]
-pub struct TakeoverArgs {
-    /// A json file containing signature values of different services
-    #[arg(required = true, short, long)]
-    pub json_file: String,
-
-    /// A file containing a list of urls
-    #[arg(required = false, short, long)]
-    pub filename: Option<String>,
-
-    /// Reads input from the standard in
-    #[arg(long)]
-    pub stdin: bool,
-}
-
-#[derive(Args)]
-pub struct DencodeArgs {
-    /// Provide a url to encode
-    #[arg(required = false, short, long)]
-    pub encode: Option<String>,
-
-    /// Provide a url to dencode
-    #[arg(required = false, short, long)]
-    pub decode: Option<String>,
+    /// Check possible OpenRedirect vulnerability
+    #[command(arg_required_else_help = true)]
+    #[clap(name = "openredirect")]
+    Openredirect(RedirectArgs),
 }

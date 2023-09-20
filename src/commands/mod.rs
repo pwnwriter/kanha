@@ -1,4 +1,5 @@
 pub mod fuzz;
+pub mod openredirect;
 pub mod rdns;
 pub mod status;
 pub mod takeover;

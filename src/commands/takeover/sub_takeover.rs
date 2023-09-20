@@ -49,6 +49,7 @@ pub async fn subdomain_takeover(
 
     Ok(())
 }
+
 const TAKEOVER_MSG: &str = "Possible subdomain takeover";
 
 async fn process_takeover_urls(urls: Vec<String>, takeover_args: &TakeoverArgs) {
