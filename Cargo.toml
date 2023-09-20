@@ -21,7 +21,7 @@ serde = { version = "1.0.188", features = ["derive"] }
 colored = "2.0.4"
 futures = "0.3.28"
 lazy_static = "1.4.0"
-dns-lookup = "2.0.2"
+dns-lookup = "2.0.3"
 serde_json = "1.0.105"
 urlencoding = "2.1.3"
 
