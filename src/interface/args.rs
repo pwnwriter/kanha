@@ -41,8 +41,4 @@ pub enum CommandChoice {
     #[clap(name = "urldencode")]
     Dencode(DencodeArgs),
 
-    /// Check possible OpenRedirect vulnerability
-    #[command(arg_required_else_help = true)]
-    #[clap(name = "openredirect")]
-    Openredirect(RedirectArgs),
 }

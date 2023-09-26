@@ -1,9 +1,9 @@
 use {
     crate::{
         commands::{
-            fuzz::fuzzer::fuzz_url, openredirect::check_openredirect,
-            rdns::rev_dns::reverse_dns_lookup, status::statuscode::handle_status_command,
-            takeover::sub_takeover::subdomain_takeover, urldencode::dencode_urls,
+            fuzz::fuzzer::fuzz_url, rdns::rev_dns::reverse_dns_lookup,
+            status::statuscode::handle_status_command, takeover::sub_takeover::subdomain_takeover,
+            urldencode::dencode_urls,
         },
         interface::args::{Cli, CommandChoice},
     },
@@ -16,7 +16,7 @@ mod log;
 
 //  asynchronous entry point where the magic happens :dizzy: 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> anyhow::Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
     let result = match cli.command {
@@ -25,7 +25,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         CommandChoice::Rdns(rdns_args) => reverse_dns_lookup(rdns_args).await,
         CommandChoice::Takeover(takeover_args) => subdomain_takeover(takeover_args).await,
         CommandChoice::Dencode(dencode_args) => dencode_urls(dencode_args).await,
-        CommandChoice::Openredirect(redirect_args) => check_openredirect(redirect_args).await,
     };
 
     if let Err(err) = result {

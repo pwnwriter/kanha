@@ -28,11 +28,17 @@ fn generate_random_number() -> usize {
 
 pub fn show_splashes() -> String {
     let rng = generate_random_number();
-    let logo = r"
+
+    let kanha_version = env!("CARGO_PKG_VERSION");
+
+    let logo = format!(
+        r#"
     ╦╔═╔═╗╔╗╔╦ ╦╔═╗
     ╠╩╗╠═╣║║║╠═╣╠═╣
-    ╩ ╩╩ ╩╝╚╝╩ ╩╩ ╩ v.0.1.0
-"
+    ╩ ╩╩ ╩╝╚╝╩ ╩╩ ╩ v{}
+"#,
+        kanha_version,
+    )
     .bold()
     .purple();
     let splash = SPLASHES[rng].italic();

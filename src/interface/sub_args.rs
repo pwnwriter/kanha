@@ -74,18 +74,3 @@ pub struct DencodeArgs {
     #[arg(required = false, long)]
     pub decode: Option<String>,
 }
-
-#[derive(Args)]
-pub struct RedirectArgs {
-    /// a file containing a list of urls to check for openredirect
-    #[arg(required = true, short, long)]
-    pub url: String,
-
-    /// a file containing a list of payloads
-    #[arg(required = true, short, long)]
-    pub filename: Option<String>,
-
-    /// Reads input from the standard in
-    #[arg(long)]
-    pub stdin: bool,
-}
