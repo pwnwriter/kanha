@@ -25,9 +25,10 @@ pub mod kanha_helpers {
     /// https://www.youtube.com/watch?v=K_wnB9ibCMg&t=1078s
     /// Reads lines from the standard input, collects them into a Vec<String> using the collect method, and returns the result
     #[inline]
-    pub fn read_urls_from_stdin() -> Result<Vec<String>, Box<dyn std::error::Error>> {
-        let stdin = io::stdin();
-        let urls: Result<Vec<String>, io::Error> = stdin.lock().lines().collect();
-        urls.map_err(|err| err.into())
+    pub fn read_urls_from_stdin() -> anyhow::Result<Vec<String>> {
+        Ok(io::read_to_string(io::stdin().lock())?
+            .lines()
+            .map(|url| url.trim().to_owned())
+            .collect())
     }
 }

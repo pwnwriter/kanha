@@ -47,7 +47,7 @@ impl ArgsWithTasks for StatusArgs {
 
 pub async fn handle_status_command(
     status_args: StatusArgs,
-) -> Result<(), Box<dyn std::error::Error>> {
+) -> anyhow::Result<(), Box<dyn std::error::Error>> {
     match status_args.stdin {
         true => {
             let urls = read_urls_from_stdin()?;
