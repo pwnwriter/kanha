@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/pwnwriter/kanha/blob/logos/kanha-default.png" width="400px" height="250px" >
+<p align="center"><img src="https://github.com/pwnwriter/kanha/blob/logos/shree.svg" width="250px" height="100px" >
 <h4 align="center"><strong><code>Kanha</code></strong> - A web-app pentesting suite written in rust 🦀</h4> </h6>
 
 <h6 align="center">
