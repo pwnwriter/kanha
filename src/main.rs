@@ -7,6 +7,7 @@ use {
         },
         interface::args::{Cli, CommandChoice},
     },
+    anyhow::Result,
     clap::Parser,
 };
 
@@ -16,7 +17,7 @@ mod log;
 
 //  asynchronous entry point where the magic happens :dizzy: 
 #[tokio::main]
-async fn main() -> anyhow::Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
     let result = match cli.command {

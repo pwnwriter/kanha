@@ -26,7 +26,6 @@ enum Content {
     Multiple(Vec<String>),
 }
 
-#[allow(clippy::useless_format)]
 pub async fn subdomain_takeover(
     takeover_args: TakeoverArgs,
 ) -> Result<(), Box<dyn std::error::Error>> {
@@ -50,7 +49,25 @@ pub async fn subdomain_takeover(
     Ok(())
 }
 
-const TAKEOVER_MSG: &str = "Possible subdomain takeover";
+async fn check_vulnerability(
+    body: &str,
+    contents: &[String],
+    platform_name: &str,
+    url: &reqwest::Url,
+) -> bool {
+    for content in contents {
+        if body.contains(content) {
+            println!(
+                "{} [{}] -> [{}]",
+                "vulnerable".blue().bold(),
+                platform_name.red().bold(),
+                url
+            );
+            return true;
+        }
+    }
+    false
+}
 
 async fn process_takeover_urls(urls: Vec<String>, takeover_args: &TakeoverArgs) {
     let json_file_path = takeover_args.json_file.to_string();
@@ -66,6 +83,8 @@ async fn process_takeover_urls(urls: Vec<String>, takeover_args: &TakeoverArgs) 
             .await
             .unwrap();
 
+        let mut vulnerable = false;
+
         for platform in &platform_info.platforms {
             let platform_name = &platform.platform;
 
@@ -74,26 +93,25 @@ async fn process_takeover_urls(urls: Vec<String>, takeover_args: &TakeoverArgs) 
                     if body.contains(content) {
                         println!(
                             "{} [{}] -> [{}]",
-                            TAKEOVER_MSG.red().bold(),
+                            "vulnerable".red().bold(),
                             platform_name.red().bold(),
                             url
                         );
+                        vulnerable = true;
+                        break;
                     }
                 }
                 Content::Multiple(contents) => {
-                    for content in contents {
-                        if body.contains(content) {
-                            println!(
-                                "{} [{}] -> [{}]",
-                                TAKEOVER_MSG.blue().bold(),
-                                platform_name.red().bold(),
-                                url
-                            );
-                            break;
-                        }
+                    if check_vulnerability(&body, contents, platform_name, &url).await {
+                        vulnerable = true;
+                        break;
                     }
                 }
             }
+        }
+
+        if !vulnerable {
+            println!("{} -> [{}]", "Not vulnerable".green().bold(), url,);
         }
     }
 }

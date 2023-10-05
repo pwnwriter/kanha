@@ -17,6 +17,7 @@ pub static SPLASHES: &[&str] = &[
 
 // Not using rand crate anymore
 // https://users.rust-lang.org/t/cheap-random-number-generator-with-std/90589/6
+
 fn generate_random_number() -> usize {
     let current_time = std::time::SystemTime::now()
         .duration_since(std::time::SystemTime::UNIX_EPOCH)
