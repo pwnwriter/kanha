@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/pwnwriter/kanha/blob/logos/kanha-default.png" width="400px" height="250px" >
+<p align="center"><img src="https://github.com/pwnwriter/kanha/blob/logos/shree.svg" width="250px" height="100px" >
 <h4 align="center"><strong><code>Kanha</code></strong> - A web-app pentesting suite written in rust 🦀</h4> </h6>
 
 <h6 align="center">
@@ -7,7 +7,7 @@
   <a href="https://github.com/pwnwriter/kanha#-Subcommands"><code>Subcommands</code></a>
   ⦾
   <a href="https://github.com/pwnwriter/kanha#-contributing"><code>Contribute</code></a>
-</p> </h6>
+ </h6>
 <p align="center">
 <a href="https://crates.io/crates/kanha/"><img src="https://img.shields.io/crates/v/kanha?style=flat&amp;labelColor=56534b&amp;color=c1c1b6&amp;logo=Rust&amp;logoColor=white" alt="Crate Release"></a>
 <a href="https://github.com/pwnwriter/kanha/issues"><img src="https://img.shields.io/github/issues/pwnwriter/kanha.svg?style=flat-square&label=Issues&color=d77982"></a>
