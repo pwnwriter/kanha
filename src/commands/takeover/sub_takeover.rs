@@ -29,51 +29,34 @@ enum Content {
 pub async fn subdomain_takeover(
     takeover_args: TakeoverArgs,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    match takeover_args.stdin {
-        true => {
-            let urls = read_urls_from_stdin()?;
-            process_takeover_urls(urls, &takeover_args.clone()).await; // Clone the args
-        }
-        false => {
-            if let Some(filename) = &takeover_args.filename {
-                let lines = read_lines(filename).await?;
-                let urls: Vec<String> = lines
-                    .map_while(Result::ok) // Filter out lines with read errors
-                    .collect();
+    let platform_info = load_platform_info(&takeover_args.json_file).await?;
 
-                process_takeover_urls(urls, &takeover_args).await;
-            }
-        }
+    if takeover_args.stdin {
+        let urls = read_urls_from_stdin()?;
+        process_takeover_urls(&urls, &platform_info).await;
     }
-
+    match (&takeover_args.input.file_path, &takeover_args.input.url) {
+        (Some(file_path), None) => {
+            let lines = read_lines(&file_path).await?;
+            let urls: Vec<String> = lines.map_while(Result::ok).collect();
+            process_takeover_urls(&urls, &platform_info).await;
+        }
+        (None, Some(url)) => {
+            let urls = vec![url.clone()];
+            process_takeover_urls(&urls, &platform_info).await;
+        }
+        _ => {}
+    }
     Ok(())
 }
 
-async fn check_vulnerability(
-    body: &str,
-    contents: &[String],
-    platform_name: &str,
-    url: &reqwest::Url,
-) -> bool {
-    for content in contents {
-        if body.contains(content) {
-            println!(
-                "{} [{}] -> [{}]",
-                "vulnerable".blue().bold(),
-                platform_name.red().bold(),
-                url
-            );
-            return true;
-        }
-    }
-    false
+async fn load_platform_info(json_file: &str) -> Result<PlatformInfo, Box<dyn std::error::Error>> {
+    let json_file_contents = tokio::fs::read_to_string(json_file).await?;
+    let platform_info: PlatformInfo = serde_json::from_str(&json_file_contents)?;
+    Ok(platform_info)
 }
 
-async fn process_takeover_urls(urls: Vec<String>, takeover_args: &TakeoverArgs) {
-    let json_file_path = takeover_args.json_file.to_string();
-    let json_file_contents = tokio::fs::read_to_string(&json_file_path).await.unwrap();
-    let platform_info: PlatformInfo = serde_json::from_str(&json_file_contents).unwrap();
-
+async fn process_takeover_urls(urls: &[String], platform_info: &PlatformInfo) {
     for url_str in urls {
         let url = url_str.parse::<reqwest::Url>().unwrap();
         let body = reqwest::get(url.clone())
@@ -83,35 +66,35 @@ async fn process_takeover_urls(urls: Vec<String>, takeover_args: &TakeoverArgs) 
             .await
             .unwrap();
 
-        let mut vulnerable = false;
+        if let Some(vulnerable_platform) = check_vulnerability(&body, platform_info).await {
+            println!(
+                "{} [{}] -> [{}]",
+                "vulnerable".red().bold(),
+                vulnerable_platform.red().bold(),
+                url
+            );
+        } else {
+            println!("{} -> [{}]", "Not vulnerable".green().bold(), url);
+        }
+    }
+}
 
-        for platform in &platform_info.platforms {
-            let platform_name = &platform.platform;
+async fn check_vulnerability(body: &str, platform_info: &PlatformInfo) -> Option<String> {
+    for platform in &platform_info.platforms {
+        let platform_name = &platform.platform;
 
-            match &platform.content {
-                Content::Single(content) => {
-                    if body.contains(content) {
-                        println!(
-                            "{} [{}] -> [{}]",
-                            "vulnerable".red().bold(),
-                            platform_name.red().bold(),
-                            url
-                        );
-                        vulnerable = true;
-                        break;
-                    }
+        match &platform.content {
+            Content::Single(content) => {
+                if body.contains(content) {
+                    return Some(platform_name.clone());
                 }
-                Content::Multiple(contents) => {
-                    if check_vulnerability(&body, contents, platform_name, &url).await {
-                        vulnerable = true;
-                        break;
-                    }
+            }
+            Content::Multiple(contents) => {
+                if contents.iter().any(|content| body.contains(content)) {
+                    return Some(platform_name.clone());
                 }
             }
         }
-
-        if !vulnerable {
-            println!("{} -> [{}]", "Not vulnerable".green().bold(), url,);
-        }
     }
+    None
 }

@@ -6,6 +6,7 @@ use crate::{
     interface::FuzzerArgs,
     log::abort,
 };
+use anyhow::{Context, Result};
 use futures::stream::iter;
 use futures::StreamExt;
 
@@ -16,19 +17,31 @@ impl ArgsWithTasks for FuzzerArgs {
 }
 
 pub async fn fuzz_url(fuzzer_args: FuzzerArgs) -> Result<(), Box<dyn std::error::Error>> {
-    let url_to_fuzz = &fuzzer_args.url;
+    let urls_to_fuzz: Vec<String> = match (&fuzzer_args.input.url, &fuzzer_args.input.file_path) {
+        (Some(url), None) => vec![url.clone()],
+        (None, Some(file_path)) => read_lines(file_path)
+            .await
+            .context(format!("Error reading URLs from file: {:?}", file_path))?
+            .filter_map(Result::ok)
+            .collect(),
+        _ => unreachable!(),
+    };
 
-    let lines = read_lines(&fuzzer_args.wordlist).await?;
-
-    if !url_to_fuzz.contains("FUZZ") {
-        abort("The URL must contain the 'FUZZ' keyword for fuzzing.")
+    if urls_to_fuzz.is_empty() {
+        abort("No URLs to fuzz.");
     }
 
-    // https://users.rust-lang.org/t/how-far-to-take-iterators-to-avoid-for-loops/30167
-    // Takes a collection of lines, filters out valid results, and replaces a placeholder ("FUZZ") with each valid line to create a list of formatted_urls
-    let formatted_urls: Vec<String> = lines
+    let payloads = read_lines(&fuzzer_args.payloads)
+        .await
+        .context("Error reading payloads from wordlist file")?;
+
+    let formatted_urls: Vec<String> = payloads
         .map_while(Result::ok)
-        .map(|line| url_to_fuzz.replace("FUZZ", &line))
+        .flat_map(|line| {
+            urls_to_fuzz
+                .iter()
+                .map(move |url| url.replace("FUZZ", &line))
+        })
         .collect();
 
     if let Some(exclude_str) = fuzzer_args.exclude.clone() {
@@ -37,9 +50,14 @@ pub async fn fuzz_url(fuzzer_args: FuzzerArgs) -> Result<(), Box<dyn std::error:
             .filter_map(|s| s.trim().parse().ok())
             .collect();
 
-        fetch_and_print_status_codes_with_exclude(formatted_urls, fuzzer_args, exclude_codes).await;
+        fetch_and_print_status_codes_with_exclude(
+            formatted_urls.clone(),
+            fuzzer_args,
+            exclude_codes,
+        )
+        .await
     } else {
-        fetch_and_print_status_codes(formatted_urls, fuzzer_args).await;
+        fetch_and_print_status_codes(formatted_urls.clone(), fuzzer_args).await
     }
 
     Ok(())
