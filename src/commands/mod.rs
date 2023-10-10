@@ -5,7 +5,7 @@ pub mod takeover;
 pub mod urldencode;
 pub use {fuzz::*, rdns::*, status::*};
 
-!#[allow(dead_code)]
+#[allow(dead_code)]
 pub mod kanha_helpers {
     use crate::log::abort;
     use std::fs::File;
@@ -34,7 +34,5 @@ pub mod kanha_helpers {
     }
 
     #[inline]
-    pub fn print_info() {
-        
-    }
+    pub fn print_info() {}
 }
