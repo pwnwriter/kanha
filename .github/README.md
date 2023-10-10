@@ -14,7 +14,7 @@
 <a href="https://github.com/pwnwriter/pwnwriter/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-white.svg" alt="MIT LICENSE"></a>
 <a href="https://ko-fi.com/pwnwriter"><img src="https://img.shields.io/badge/support-pwnwriter%20-pink?logo=kofi&logoColor=white" alt="Ko-fi"></a>
 
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
+![-----------------------------------------------------](https://github.com/pwnwriter/haylxon/blob/readme-assets/colored.png)
 
 <img src="https://github.com/pwnwriter/kanha/blob/logos/kanha-help.png" alt="img" align="right" width="50%"></p>
     
