@@ -197,12 +197,12 @@ Built from the ground up with performance, ease of use, and portability in mind 
   - 🐎 Add new [subcommand](/src/commands).
   - 🧑‍🚒 Fix docx // improve code quality
 
-## Also see 👀
+## 👀 Also see 
 - [`haylxon`](https://github.com/pwnwriter/haylxon) :- Blazingly fast tool to grab screenshots of your domain list right from terminal written in rust 🦀
 - [`httpx`](https://github.com/projectdiscovery/httpx) :- httpx is a fast and multi-purpose HTTP toolkit.
 - [`ffuf`](https://github.com/ffuf/ffuf) :- Fast web fuzzer written in Go
 
-## License 🔐
+## 🔏 License 
  As always, this project is also licensed under the [**`MIT LICENSE`**](/LICENSE) 
  &nbsp;
  
