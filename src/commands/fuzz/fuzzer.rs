@@ -22,7 +22,7 @@ pub async fn fuzz_url(fuzzer_args: FuzzerArgs) -> Result<(), Box<dyn std::error:
         (None, Some(file_path)) => read_lines(file_path)
             .await
             .context(format!("Error reading URLs from file: {:?}", file_path))?
-            .filter_map(Result::ok)
+            .map_while(Result::ok)
             .collect(),
         _ => unreachable!(),
     };

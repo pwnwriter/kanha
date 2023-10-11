@@ -4,7 +4,6 @@ use crate::{
     commands::kanha_helpers::{read_lines, read_urls_from_stdin},
     interface::TakeoverArgs,
 };
-use anyhow::Context;
 use colored::*;
 use reqwest;
 use serde::{Deserialize, Serialize};
@@ -38,7 +37,7 @@ pub async fn subdomain_takeover(
     }
     match (&takeover_args.input.file_path, &takeover_args.input.url) {
         (Some(file_path), None) => {
-            let lines = read_lines(&file_path).await?;
+            let lines = read_lines(file_path).await?;
             let urls: Vec<String> = lines.map_while(Result::ok).collect();
             process_takeover_urls(&urls, &platform_info).await;
         }
@@ -61,7 +60,6 @@ async fn process_takeover_urls(urls: &[String], platform_info: &PlatformInfo) {
     for url_str in urls {
         let url = url_str
             .parse::<reqwest::Url>()
-            .context(format!("Error url without a base"))
             .unwrap();
 
         let body = reqwest::get(url.clone()) // Clone the Url
