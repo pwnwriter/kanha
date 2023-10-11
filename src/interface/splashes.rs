@@ -9,7 +9,7 @@ pub static SPLASHES: &[&str] = &[
     "Hacking in a nutshell",
     "In the world of programming, curiosity is the compass. - Ashokcpg",
     "Compile once, Hack forever - PwnWriter",
-    "I want my system to hack!! woo",
+    "I want my system to hack!! wOoO",
     "Hello everyone, this is your daily dose for Bounty - PwnWriter",
     "Why no work?, Bro RTFM :/",
     "Hey PwnWriter, Your readmes are soo beautiful - plan9boys",

@@ -7,6 +7,7 @@ pub use {fuzz::*, rdns::*, status::*};
 
 #[allow(dead_code)]
 pub mod kanha_helpers {
+    use crate::interface::splashes::show_splashes;
     use crate::log::abort;
     use std::fs::File;
     use std::io::{self, BufRead};
@@ -34,5 +35,8 @@ pub mod kanha_helpers {
     }
 
     #[inline]
-    pub fn print_info() {}
+    pub fn print_info() {
+        let banner = show_splashes();
+        println!("{}", banner);
+    }
 }
