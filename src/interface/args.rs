@@ -15,27 +15,27 @@ pub struct Cli {
 #[derive(Subcommand)]
 pub enum CommandChoice {
     /// Just return the HTTP response code of URLs
-    #[command(arg_required_else_help = true, about = show_splashes(), long_about = show_splashes())]
+    #[command(arg_required_else_help = true)]
     #[clap(name = "status")]
     Status(StatusArgs),
 
     /// Fuzz a URL and return the response codes
-    #[command(arg_required_else_help = true, about = show_splashes(), long_about = show_splashes())]
+    #[command(arg_required_else_help = true)]
     #[clap(name = "fuzz")]
     Fuzzer(FuzzerArgs),
 
     /// Reverse dns lookup
-    #[command(arg_required_else_help = true, about = show_splashes(), long_about = show_splashes())]
+    #[command(arg_required_else_help = true)]
     #[clap(name = "rdns")]
     Rdns(RdnsArgs),
 
     /// Check possible subdomain takeover vulnerability
-    #[command(arg_required_else_help = true, about = show_splashes(), long_about = show_splashes())]
+    #[command(arg_required_else_help = true)]
     #[clap(name = "takeover")]
     Takeover(TakeoverArgs),
 
     /// (De|En) code urls
-    #[command(arg_required_else_help = true, about = show_splashes(), long_about = show_splashes())]
+    #[command(arg_required_else_help = true)]
     #[clap(name = "urldencode")]
     Dencode(DencodeArgs),
 }

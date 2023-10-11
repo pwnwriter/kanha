@@ -1,7 +1,7 @@
 use clap::Args;
 
 #[derive(Debug, Args, Clone)]
-#[group(required = false, multiple = false)]
+#[group(required = false, multiple = false, conflicts_with = "stdin")]
 pub struct Input {
     /// A single url
     #[arg(short, long)]
@@ -48,6 +48,10 @@ pub struct FuzzerArgs {
     /// Define your status code for selective exclusion.
     #[arg(long)]
     pub exclude: Option<String>,
+
+    /// Reads input from the standard in
+    #[arg(long)]
+    pub stdin: bool,
 }
 
 #[derive(Args, Clone)]

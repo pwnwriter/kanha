@@ -1,6 +1,6 @@
 use crate::{
     commands::{
-        kanha_helpers::read_lines,
+        kanha_helpers::{read_lines, read_urls_from_stdin},
         statuscode::{fetch_and_print_status_codes, ArgsWithTasks},
     },
     interface::FuzzerArgs,
@@ -17,14 +17,17 @@ impl ArgsWithTasks for FuzzerArgs {
 }
 
 pub async fn fuzz_url(fuzzer_args: FuzzerArgs) -> Result<(), Box<dyn std::error::Error>> {
-    let urls_to_fuzz: Vec<String> = match (&fuzzer_args.input.url, &fuzzer_args.input.file_path) {
-        (Some(url), None) => vec![url.clone()],
-        (None, Some(file_path)) => read_lines(file_path)
-            .await
-            .context(format!("Error reading URLs from file: {:?}", file_path))?
-            .map_while(Result::ok)
-            .collect(),
-        _ => unreachable!(),
+    let urls_to_fuzz: Vec<String> = match fuzzer_args.stdin {
+        true => read_urls_from_stdin()?,
+        false => match (&fuzzer_args.input.url, &fuzzer_args.input.file_path) {
+            (Some(url), None) => vec![url.clone()],
+            (None, Some(file_path)) => read_lines(file_path)
+                .await
+                .context(format!("Error reading URLs from file: {:?}", file_path))?
+                .map_while(Result::ok)
+                .collect(),
+            _ => unreachable!(),
+        },
     };
 
     if urls_to_fuzz.is_empty() {
