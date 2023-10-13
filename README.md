@@ -83,17 +83,18 @@ Built from the ground up with performance, ease of use, and portability in mind 
 
   ```bash
   $ kanha status -h
-  
   Just return the HTTP response code of URLs
 
   Usage: kanha status [OPTIONS]
 
-    Options:
-    -f, --filename <FILENAME>  A url or a file containing multiple urls
+  Options:
+    -f, --filename <FILENAME>  A file containing multiple urls
+    -t, --tasks <TASKS>        Define the maximum concurrent tasks [default: 20]
         --stdin                Reads input from the standard in
-    -t, --tasks <TASKS>        Define the maximum concurrent tasks [default: 10]
+        --exclude <EXCLUDE>    Define your status code for selective exclusion
     -h, --help                 Print help
     -V, --version              Print version
+
   ```
 
   <details>
@@ -115,22 +116,28 @@ Built from the ground up with performance, ease of use, and portability in mind 
     
   ```bash
   $ kanha fuzz -h
-  Fuzz URLs and return the response codes
+  Fuzz a URL and return the response codes
 
-  Usage: kanha fuzz [OPTIONS] --wordlist <WORDLIST> --url <URL>
+  Usage: kanha fuzz [OPTIONS] --payloads <PAYLOADS>
 
   Options:
-    -w, --wordlist <WORDLIST>  A file containing a list of possible wordlists
-    -u, --url <URL>            Provide a url to fuzz
-    -t, --tasks <TASKS>        Define the maximum concurrent tasks [default: 10]
-    -h, --help                 Print help
-    -V, --version              Print version
+    -p, --payloads <PAYLOADS>    A file containing a list of payloads
+    -u, --url <URL>              A single url
+    -f, --file-path <FILE_PATH>  Path of the file containing multiple urls
+    -t, --tasks <TASKS>          Define the maximum concurrent tasks [default: 20]
+        --exclude <EXCLUDE>      Define your status code for selective exclusion
+        --stdin                  Reads input from the standard in
+    -h, --help                   Print help
+    -V, --version                Print version
+
   ```
     <details>
   <summary>🦊 Screenshots </summary>
       &nbsp;
       
-  ![fuzz](https://github.com/pwnwriter/kanha/assets/90331517/171d5fb8-b4b1-480c-9331-4204fa44944f)
+  ![screenshot_2023-10-13_14-08-46](https://github.com/pwnwriter/kanha/assets/90331517/e3418630-b5c4-4986-95e8-57f832ee91f2)
+  ![screenshot_2023-10-13_14-07-45](https://github.com/pwnwriter/kanha/assets/90331517/692e1214-8b32-40c9-bae7-9cce1ab064f0)
+
   </details>
   
   </details>
@@ -143,15 +150,15 @@ Built from the ground up with performance, ease of use, and portability in mind 
   ```bash
   
   $ kanha rdns  -h
-    Reverse dns lookup
+  Reverse dns lookup
 
-    Usage: kanha rdns [OPTIONS] --filename <FILENAME>
+  Usage: kanha rdns [OPTIONS] --filename <FILENAME>
 
-    Options:
-      -f, --filename <FILENAME>  a file containing a list of possible wordlists
-          --stdin                Reads input from the standard in
-      -h, --help                 Print help
-      -V, --version              Print version
+  Options:
+    -f, --filename <FILENAME>  a file containing a list of possible wordlists
+        --stdin                Reads input from the standard in
+    -h, --help                 Print help
+    -V, --version              Print version
   ```
     <details>
   <summary>🦊 Screenshots </summary>
@@ -169,27 +176,61 @@ Built from the ground up with performance, ease of use, and portability in mind 
   &nbsp;
       
   ```bash
-  Check possible subdomain takeover
+  $ kanha takeover -h
+  Check possible subdomain takeover vulnerability
 
-  Usage: kanha takeover [OPTIONS] --json-file <JSON_FILE>
+  Usage: kanha takeover [OPTIONS]
 
   Options:
+    -u, --url <URL>              A single url
+    -f, --file-path <FILE_PATH>  Path of the file containing multiple urls
     -j, --json-file <JSON_FILE>  A json file containing signature values of different services
-    -f, --filename <FILENAME>    A file containing a list of urls
         --stdin                  Reads input from the standard in
     -h, --help                   Print help
     -V, --version                Print version
+
   ```
     <details>
   <summary>🦊 Screenshots </summary>
       &nbsp;
       
-  ![takeover](https://github.com/pwnwriter/kanha/assets/90331517/25d499b0-8e66-4cc5-a414-887deb10124f)
+  ![Takeover single](https://github.com/pwnwriter/kanha/assets/90331517/b868146d-03eb-4803-81b3-5283135f3d4f)
+  ![Takeover multiple](https://github.com/pwnwriter/kanha/assets/90331517/f13e0001-b39d-4132-b98f-86836f789be3)
+
   ![takeover-stdin](https://github.com/pwnwriter/kanha/assets/90331517/1b956c9d-2d37-4656-97ee-2aca2199750b)
+  </details>
+
+
+- ➎ `urldencode` :- (De|En) code urls
+  <details>
+  <summary>👻 Help</summary>  
+  &nbsp;
+      
+  ```bash
+  $ kanha urldencode -h
+  (De|En) code urls
+
+  Usage: kanha urldencode [OPTIONS]
+  
+  Options:
+        --encode <ENCODE>  Provide a url to encode
+        --decode <DECODE>  Provide a url to dencode
+    -h, --help             Print help
+    -V, --version          Print version
+  
+  ```
+    <details>
+  <summary>🦊 Screenshots </summary>
+      &nbsp;
+      
+  ![urldencode](https://github.com/pwnwriter/kanha/assets/90331517/b757694d-a4f9-4ea2-a962-c8419fe59b56)
+  ![urldencode](https://github.com/pwnwriter/kanha/assets/90331517/dcf45079-7514-4951-b264-a3e6f708ebdb)    
   </details>
 </details>
 
-<!-- ➎ ➏ ➐ ➑ ➒ -->
+
+
+<!--  ➏ ➐ ➑ ➒ -->
 
 ## 👐 Contributing
   - 🪶 Recommend a new features
@@ -209,4 +250,3 @@ Built from the ground up with performance, ease of use, and portability in mind 
 <p align="center"><img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/footers/gray0_ctp_on_line.svg?sanitize=true" /></p>
 <p align="center">Copyright &copy; 2023<a href="https://pwnwriter.xyz" target="_blank"> pwnwriter xyz </a> ☘️ </p> 
   
-
