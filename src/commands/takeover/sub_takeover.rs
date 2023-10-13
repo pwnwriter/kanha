@@ -58,9 +58,13 @@ async fn load_platform_info(json_file: &str) -> Result<PlatformInfo, Box<dyn std
 
 async fn process_takeover_urls(urls: &[String], platform_info: &PlatformInfo) {
     for url_str in urls {
-        let url = url_str
-            .parse::<reqwest::Url>()
-            .unwrap();
+        let url = match reqwest::Url::parse(url_str) {
+            Ok(url) => url,
+            Err(_) => {
+                println!("{} -> [{}]", "Invalid URL".red().bold(), url_str);
+                continue;
+            }
+        };
 
         let body = reqwest::get(url.clone()) // Clone the Url
             .await
