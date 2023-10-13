@@ -22,7 +22,6 @@ where
     let semaphore = Arc::new(Semaphore::new(args.tasks()));
 
     let tasks = urls.into_iter().map(|url| {
-        let client = client.clone();
         let semaphore = semaphore.clone();
         async move {
             let _permit = semaphore.acquire().await.expect("Semaphore error");
