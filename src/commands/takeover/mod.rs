@@ -1,7 +1,6 @@
 pub mod sub_takeover;
 pub use sub_takeover::*;
 
-#[allow(dead_code)]
 pub mod takeover_helper {
 
     use crate::log::abort;
@@ -13,7 +12,6 @@ pub mod takeover_helper {
 
         if response.status().is_success() {
             let json_text = response.text().await?;
-            println!("{}", json_text);
             Ok(json_text)
         } else {
             abort("Couldn't fetch default json, parse manualy");

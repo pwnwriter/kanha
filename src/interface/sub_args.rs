@@ -59,9 +59,9 @@ pub struct TakeoverArgs {
     #[command(flatten)]
     pub input: Input,
 
-    /// A json file containing signature values of different services
+    /// A json file containing signature values of different services (if you don't provide it uses default one)
     #[arg(required = false, short, long)]
-    pub json_file: String,
+    pub json_file: Option<String>,
 
     /// Reads input from the standard in
     #[arg(long)]

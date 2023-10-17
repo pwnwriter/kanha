@@ -13,7 +13,7 @@ pub fn info(msg: &str, color: Color) {
 }
 
 pub fn message(msg: &str, color: Color) {
-    println!("{}", msg.bold().color(color));
+    println!("Message: {}", msg.bold().color(color));
 }
 
 pub fn error(msg: &str) {

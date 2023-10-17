@@ -3,10 +3,13 @@
 use crate::{
     commands::kanha_helpers::{read_lines, read_urls_from_stdin},
     interface::TakeoverArgs,
+    log::message,
 };
 use colored::*;
 use reqwest;
 use serde::{Deserialize, Serialize};
+
+use super::takeover_helper::get_signatures_from_repo;
 
 #[derive(Debug, Deserialize, Serialize)]
 struct PlatformInfo {
@@ -50,8 +53,19 @@ pub async fn subdomain_takeover(
     Ok(())
 }
 
-async fn load_platform_info(json_file: &str) -> Result<PlatformInfo, Box<dyn std::error::Error>> {
-    let json_file_contents = tokio::fs::read_to_string(json_file).await?;
+async fn load_platform_info(
+    json_file: &Option<String>,
+) -> Result<PlatformInfo, Box<dyn std::error::Error>> {
+    let json_file_contents = match json_file {
+        Some(file) => tokio::fs::read_to_string(file).await?,
+        None => {
+            let _ = message(
+                "Seems like you didn't pass the JSON, fetching and using default JSON",
+                Color::Blue,
+            );
+            get_signatures_from_repo().await?
+        }
+    };
     let platform_info: PlatformInfo = serde_json::from_str(&json_file_contents)?;
     Ok(platform_info)
 }
@@ -66,7 +80,7 @@ async fn process_takeover_urls(urls: &[String], platform_info: &PlatformInfo) {
             }
         };
 
-        let body = reqwest::get(url.clone()) // Clone the Url
+        let body = reqwest::get(url.clone())
             .await
             .unwrap()
             .text()
