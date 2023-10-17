@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2023-10-17
+
+### Features
+
+- Use default json if the end user don't provide one
+
+### Miscellaneous Tasks
+
+- Prepare changelog notes for the new release
+- Showcase images for the docx // subcommands
+- Bug-report,feature req templates
+- Removed redundant client calls
+- Show docx from main path
+
+### Refactor
+
+- Show docx inside main instead of .github
+
 ## [0.1.1] - 2023-10-13
 
 ### Bug Fixes
