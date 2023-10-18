@@ -74,6 +74,15 @@ Built from the ground up with performance, ease of use, and portability in mind 
 
 </details>
 
+<details> <summary><code>💢 Arch user repository </code></summary>
+&nbsp;
+  
+  ```bash
+  paru/yay -S kanha-git
+  ```
+
+</details>
+
 ## 🌈 Subcommands
 - ➊ `Status` :- Just return the HTTP response code of URLs
 
