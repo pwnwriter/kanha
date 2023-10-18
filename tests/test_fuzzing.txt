@@ -21,6 +21,7 @@
 .passes
 .passwd
 .password
+.env
 projects
 guestbook
 blog
