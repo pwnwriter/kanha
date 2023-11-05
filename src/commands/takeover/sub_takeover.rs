@@ -59,7 +59,7 @@ async fn load_platform_info(
     let json_file_contents = match json_file {
         Some(file) => tokio::fs::read_to_string(file).await?,
         None => {
-            let _ = message(
+            message(
                 "Seems like you didn't pass the JSON, fetching and using default JSON",
                 Color::Blue,
             );

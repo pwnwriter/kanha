@@ -12,7 +12,6 @@ pub static SPLASHES: &[&str] = &[
     "I want my system to hack!! wOoO",
     "Hello everyone, this is your daily dose for Bounty - PwnWriter",
     "Why no work?, Bro RTFM :/",
-    "Hey PwnWriter, Your readmes are soo beautiful - plan9boys",
 ];
 
 // Not using rand crate anymore
