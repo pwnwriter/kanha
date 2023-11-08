@@ -14,12 +14,12 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum CommandChoice {
-    /// Just return the HTTP response code of URLs
+    /// Just return the HTTP response code of urls
     #[command(arg_required_else_help = true)]
     #[clap(name = "status")]
     Status(StatusArgs),
 
-    /// Fuzz a URL and return the response codes
+    /// Fuzz urls and return the response codes
     #[command(arg_required_else_help = true)]
     #[clap(name = "fuzz")]
     Fuzzer(FuzzerArgs),
