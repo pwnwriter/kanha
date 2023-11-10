@@ -25,4 +25,5 @@
 projects
 guestbook
 blog
-
+guestbook
+dist
