@@ -16,7 +16,7 @@
 
 ![-----------------------------------------------------][line]
 
-<img src="https://github.com/pwnwriter/kanha/blob/logos/kanha-help.png" alt="img" align="right" width="50%"></p>
+<img src="https://github.com/pwnwriter/kanha/assets/90331517/7fbabb20-44bf-4d34-9602-fad6e0487b5e" alt="img" align="right" width="50%"></p>
     
 [**`Kanha`**](/) is a tool that can help you perform, a variety of attacks based on the target domain . With just `kanha` you can do, [***`Fuzzing`***][wiki-fuzzing], [***`Reverse dns lookup`***][wiki-dns-lookup], [***`common http response`***][wiki-http], [***`subdomain takeover detection`***][wiki-subdomain] and many [**`more`**][commands]. 
 
