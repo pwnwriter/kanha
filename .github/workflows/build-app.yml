@@ -23,4 +23,4 @@ jobs:
       uses: DeterminateSystems/magic-nix-cache-action@main
 
     - name: Build
-      run: nix build
+      run: nix develop --command nix build
