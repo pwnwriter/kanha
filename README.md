@@ -91,6 +91,22 @@ wget -qO- "$(curl -qfsSL "https://api.github.com/repos/pwnwriter/kanha/releases/
 
 </details>
 
+
+<details open> <summary><code> On Nix  </code></summary>
+&nbsp;
+  
+  ```bash
+# Build from source and run
+  nix run github:pwnwriter/kanha
+# without flakes:
+ nix-env -iA nixpkgs.kanha
+# with flakes:
+ nix profile install nixpkgs#kanha
+  ```
+
+</details>
+
+
 ## Subcommands
 - ➊ `Status` :- Just return the HTTP response code of URLs
 
