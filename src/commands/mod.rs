@@ -3,7 +3,7 @@ pub mod rdns;
 pub mod status;
 pub mod takeover;
 pub mod urldencode;
-pub use {status::*};
+pub use status::*;
 
 #[allow(dead_code)]
 pub mod kanha_helpers {
