@@ -27,3 +27,8 @@ guestbook
 blog
 guestbook
 dist
+root
+root.html
+admin.html
+
+admin
