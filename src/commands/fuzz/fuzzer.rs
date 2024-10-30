@@ -91,13 +91,7 @@ pub async fn fetch_and_print_status_codes_with_exclude(
         match response_result {
             Ok(response) => {
                 let status_code = response.status();
-                let status_code_usize: usize = match status_code.as_u16().try_into() {
-                    Ok(code) => code,
-                    Err(_) => {
-                        eprintln!("Error fetching URL {}: Invalid status code", url);
-                        continue;
-                    }
-                };
+                let status_code_usize: usize = status_code.as_u16().into();
                 if !exclude.contains(&status_code_usize) {
                     println!("URL: {}, Status Code: {}", url, status_code_usize);
                 }
