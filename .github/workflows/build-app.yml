@@ -1,26 +1,25 @@
-name: Nix Build
+name: Run on Changes
 
 on:
   push:
-    branches: [ main ]
+    paths:
+      - 'src/*'
+      - 'flake.*'
+      - 'Cargo.*'
   pull_request:
-    branches: [ main ]
-
-env:
-  CARGO_TERM_COLOR: always
+    paths:
+      - 'src/*'
+      - 'flake.*'
+      - 'Cargo.*'
 
 jobs:
-  build:
-    runs-on: macos-latest
+  run-tests:
+    runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install Nix package manager
-      uses: DeterminateSystems/nix-installer-action@main
-
-    - name: Setup Nix cache
-      uses: DeterminateSystems/magic-nix-cache-action@main
-
-    - name: Build
-      run: nix develop --command nix build
+      - name: Nix build
+        run: |
+          nix build
