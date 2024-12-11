@@ -17,7 +17,7 @@ categories = ["accessibility", "web-programming", "command-line" ]
 clap = { version = "4.4.11", features = ["derive", "string"] }
 reqwest = { version = "0.11.20", default-features = false, features = ["json", "rustls-tls"] }
 tokio = { version = "1.33.0", features = ["full"] }  
-serde = { version = "1.0.193", features = ["derive"] }
+serde = { version = "1.0.216", features = ["derive"] }
 colored = "2.0.4"
 futures = "0.3.30"
 lazy_static = "1.4.0"
